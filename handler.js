@@ -1,18 +1,31 @@
 'use strict';
 
-module.exports.hello = async (event) => {
+module.exports.createNote = async (event) => {
+  return {
+    statusCode: 201,
+    body: JSON.stringify('A new note created'),
+  };
+};
+
+module.exports.updateNote = async (event) => {
+  let notesId = event.pathParameters.id;
   return {
     statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2
-    ),
+    body: JSON.stringify('The note with id ' + notesId + ' has been updated!!!'),
   };
+};
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
+module.exports.deleteNote = async (event) => {
+  let notesId = event.pathParameters.id;
+  return {
+    statusCode: 200,
+    body: JSON.stringify('The note with id ' + notesId + ' has been deleted!!!'),
+  };
+};
+
+module.exports.getAllNotes = async (event) => {
+  return {
+    statusCode: 200,
+    body: JSON.stringify('All notes are returned'),
+  };
 };
