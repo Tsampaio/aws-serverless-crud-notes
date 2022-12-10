@@ -10,6 +10,11 @@ provider:
 functions:
   createNote:
     handler: handler.createNote
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: !GetAtt notesTable.Arn
     events:
       - http:
           method: post
@@ -33,6 +38,10 @@ functions:
       - http:
           method: get
           path: notes
+
+plugins:
+  - serverless-iam-roles-per-function
+
 # you can add CloudFormation resource templates here
 resources:
   Resources:
